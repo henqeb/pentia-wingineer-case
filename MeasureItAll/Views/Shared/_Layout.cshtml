@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Measure it all</title>
+</head>
+<body>
+    <nav>
+        <a asp-controller="Home" asp-action="Index">Salespeople</a> |
+        <a asp-controller="OrderVolume" asp-action="Index">Order volume</a>
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>

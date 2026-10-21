@@ -1,0 +1,54 @@
+@model SalesPersonDetailsModel
+@{
+    ViewData["Title"] = Model.SalesPerson.Name;
+}
+
+<h1>@Model.SalesPerson.Name</h1>
+
+<dl>
+    <dt>Id</dt>
+    <dd>@Model.SalesPerson.Id</dd>
+    <dt>Name</dt>
+    <dd>@Model.SalesPerson.Name</dd>
+    <dt>Hire date</dt>
+    <dd>@Model.SalesPerson.HireDate</dd>
+    <dt>Address</dt>
+    <dd>@Model.SalesPerson.Address</dd>
+    <dt>City</dt>
+    <dd>@Model.SalesPerson.City</dd>
+    <dt>Zip code</dt>
+    <dd>@Model.SalesPerson.ZipCode</dd>
+</dl>
+
+<h2>Orders (@Model.Orders.Count)</h2>
+
+@if (Model.Orders.Count == 0)
+{
+    <p>This salesperson has no orders.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Order name</th>
+                <th>Order price</th>
+                <th>Order date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderName</td>
+                    <td>@order.OrderPrice</td>
+                    <td>@order.OrderDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p><a asp-controller="Home" asp-action="Index">Back to salespeople</a></p>
