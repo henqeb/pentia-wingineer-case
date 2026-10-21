@@ -7,7 +7,7 @@ namespace MeasureItAll.Services;
 public class OrderVolumeService : IOrderVolumeService
 {
     // The API returns order dates as either "DD-MM-YYYY" or "YYYY-MM-DD".
-    private static readonly string[] OrderDateFormats = { "dd-MM-yyyy", "yyyy-MM-dd" };
+    private static readonly string[] OrderDateFormats = { "dd-MM-yyyy HH:mm", "yyyy-MM-dd HH:mm" };
 
     private readonly IWingineerApiWebService wingineerApiWebService;
 
