@@ -30,7 +30,7 @@ public class CustomerApiWebService : ICustomerApiWebService
     private async Task<IReadOnlyList<TDto>> GetCollectionAsync<TDto>(string resourceName)
     {
         var requestPath = $"api/v{customerApiOptions.ApiVersion}/{resourceName}";
-        var items = await httpClient.GetFromJsonsync<List<TDto>>(requestPath);
+        var items = await httpClient.GetFromJsonAsync<List<TDto>>(requestPath);
         return items ?? new List<TDto>();
     }
 }
