@@ -6,6 +6,9 @@ namespace MeasureItAll.Services;
 
 public class OrderVolumeService : IOrderVolumeService
 {
+    // The API returns order dates as either "DD-MM-YYYY" or "YYYY-MM-DD".
+    private static readonly string[] OrderDateFormats = { "dd-MM-yyyy", "yyyy-MM-dd" };
+
     private readonly IWingineerApiWebService wingineerApiWebService;
 
     public OrderVolumeService(IWingineerApiWebService wingineerApiWebService)
@@ -48,9 +51,6 @@ public class OrderVolumeService : IOrderVolumeService
 
         return monthlyOrderVolumes;
     }
-
-    // The API returns order dates as either "DD-MM-YYYY" or "YYYY-MM-DD".
-    private static readonly string[] OrderDateFormats = { "dd-MM-yyyy", "yyyy-MM-dd" };
 
     private static DateOnly? ParseOrderMonth(string? orderDate)
     {
