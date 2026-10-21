@@ -49,9 +49,12 @@ public class OrderVolumeService : IOrderVolumeService
         return monthlyOrderVolumes;
     }
 
+    // The API returns order dates as either "DD-MM-YYYY" or "YYYY-MM-DD".
+    private static readonly string[] OrderDateFormats = { "dd-MM-yyyy", "yyyy-MM-dd" };
+
     private static DateOnly? ParseOrderMonth(string? orderDate)
     {
-        if (!DateTime.TryParse(orderDate, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedOrderDate))
+        if (!DateOnly.TryParseExact(orderDate?.Trim(), OrderDateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedOrderDate))
         {
             return null;
         }
