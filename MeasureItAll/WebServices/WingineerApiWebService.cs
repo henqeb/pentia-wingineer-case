@@ -4,17 +4,17 @@ using Microsoft.Extensions.Options;
 
 namespace MeasureItAll.WebServices;
 
-// Calls the customer API and wraps the responses in DTOs.
+// Calls the Wingineer API and wraps the responses in DTOs.
 // The HttpClient's base address and ApiKey header are configured in Program.cs.
-public class CustomerApiWebService : ICustomerApiWebService
+public class WingineerApiWebService : IWingineerApiWebService
 {
     private readonly HttpClient httpClient;
-    private readonly CustomerApiOptions customerApiOptions;
+    private readonly WingineerApiOptions wingineerApiOptions;
 
-    public CustomerApiWebService(HttpClient httpClient, IOptions<CustomerApiOptions> customerApiOptions)
+    public WingineerApiWebService(HttpClient httpClient, IOptions<WingineerApiOptions> wingineerApiOptions)
     {
         this.httpClient = httpClient;
-        this.customerApiOptions = customerApiOptions.Value;
+        this.wingineerApiOptions = wingineerApiOptions.Value;
     }
 
     public Task<IReadOnlyList<SalesPersonDto>> GetSalesPersonsAsync()
@@ -29,7 +29,7 @@ public class CustomerApiWebService : ICustomerApiWebService
 
     private async Task<IReadOnlyList<TDto>> GetCollectionAsync<TDto>(string resourceName)
     {
-        var requestPath = $"api/v{customerApiOptions.ApiVersion}/{resourceName}";
+        var requestPath = $"api/v{wingineerApiOptions.ApiVersion}/{resourceName}";
         var items = await httpClient.GetFromJsonAsync<List<TDto>>(requestPath);
         return items ?? new List<TDto>();
     }

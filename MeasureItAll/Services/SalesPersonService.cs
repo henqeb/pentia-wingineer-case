@@ -5,17 +5,17 @@ namespace MeasureItAll.Services;
 
 public class SalesPersonService : ISalesPersonService
 {
-    private readonly ICustomerApiWebService customerApiWebService;
+    private readonly IWingineerApiWebService wingineerApiWebService;
 
-    public SalesPersonService(ICustomerApiWebService customerApiWebService)
+    public SalesPersonService(IWingineerApiWebService wingineerApiWebService)
     {
-        this.customerApiWebService = customerApiWebService;
+        this.wingineerApiWebService = wingineerApiWebService;
     }
 
     public async Task<IReadOnlyList<SalesPersonOrderCountModel>> GetSalesPersonOrderCountsAsync()
     {
-        var salesPersons = await customerApiWebService.GetSalesPersonsAsync();
-        var orderLines = await customerApiWebService.GetOrderLinesAsync();
+        var salesPersons = await wingineerApiWebService.GetSalesPersonsAsync();
+        var orderLines = await wingineerApiWebService.GetOrderLinesAsync();
 
         var orderCountsBySalesPersonId = orderLines
             .GroupBy(orderLine => orderLine.SalesPersonId)
@@ -33,14 +33,14 @@ public class SalesPersonService : ISalesPersonService
 
     public async Task<SalesPersonDetailsModel?> GetSalesPersonDetailsAsync(int salesPersonId)
     {
-        var salesPersons = await customerApiWebService.GetSalesPersonsAsync();
+        var salesPersons = await wingineerApiWebService.GetSalesPersonsAsync();
         var salesPerson = salesPersons.FirstOrDefault(candidate => candidate.Id == salesPersonId);
         if (salesPerson is null)
         {
             return null;
         }
 
-        var orderLines = await customerApiWebService.GetOrderLinesAsync();
+        var orderLines = await wingineerApiWebService.GetOrderLinesAsync();
         var salesPersonOrders = orderLines
             .Where(orderLine => orderLine.SalesPersonId == salesPersonId)
             .ToList();
