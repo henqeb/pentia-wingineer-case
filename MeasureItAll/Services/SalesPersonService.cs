@@ -14,8 +14,12 @@ public class SalesPersonService : ISalesPersonService
 
     public async Task<IReadOnlyList<SalesPersonOrderCountModel>> GetSalesPersonOrderCountsAsync()
     {
-        var salesPersons = await wingineerApiWebService.GetSalesPersonsAsync();
-        var orderLines = await wingineerApiWebService.GetOrderLinesAsync();
+        var salesPersonsTask = wingineerApiWebService.GetSalesPersonsAsync();
+        var orderLinesTask = wingineerApiWebService.GetOrderLinesAsync();
+        await Task.WhenAll(salesPersonsTask, orderLinesTask);
+
+        var salesPersons = await salesPersonsTask;
+        var orderLines = await orderLinesTask;
 
         var orderCountsBySalesPersonId = orderLines
             .GroupBy(orderLine => orderLine.SalesPersonId)

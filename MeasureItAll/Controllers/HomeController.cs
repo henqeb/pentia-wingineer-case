@@ -18,7 +18,6 @@ public class HomeController : Controller
         return View(salesPersonOrderCounts);
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
         return View();
