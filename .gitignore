@@ -43,6 +43,7 @@ ScaffoldingReadMe.txt
 ~$*
 *~
 CodeCoverage/
+.vscode/launch.json
 
 # MSBuild Binary and Structured Log
 *.binlog
