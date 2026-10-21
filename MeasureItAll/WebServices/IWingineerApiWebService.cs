@@ -2,7 +2,7 @@ using MeasureItAll.Dtos;
 
 namespace MeasureItAll.WebServices;
 
-public interface ICustomerApiWebService
+public interface IWingineerApiWebService
 {
     Task<IReadOnlyList<SalesPersonDto>> GetSalesPersonsAsync();
 

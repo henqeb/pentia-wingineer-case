@@ -7,18 +7,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddOptions<CustomerApiOptions>()
-    .Bind(builder.Configuration.GetSection(CustomerApiOptions.SectionName))
+builder.Services.AddOptions<WingineerApiOptions>()
+    .Bind(builder.Configuration.GetSection(WingineerApiOptions.SectionName))
     .Validate(
-        customerApiOptions => !string.IsNullOrWhiteSpace(customerApiOptions.ApiKey),
-        "The customer API key is missing. Set the environment variable CustomerApi__ApiKey.")
+        wingineerApiOptions => !string.IsNullOrWhiteSpace(wingineerApiOptions.ApiKey),
+        "The Wingineer API key is missing. Set the environment variable WingineerApi__ApiKey.")
     .ValidateOnStart();
 
-builder.Services.AddHttpClient<ICustomerApiWebService, CustomerApiWebService>((serviceProvider, httpClient) =>
+builder.Services.AddHttpClient<IWingineerApiWebService, WingineerApiWebService>((serviceProvider, httpClient) =>
 {
-    var customerApiOptions = serviceProvider.GetRequiredService<IOptions<CustomerApiOptions>>().Value;
-    httpClient.BaseAddress = new Uri(customerApiOptions.BaseUrl);
-    httpClient.DefaultRequestHeaders.Add("ApiKey", customerApiOptions.ApiKey);
+    var wingineerApiOptions = serviceProvider.GetRequiredService<IOptions<WingineerApiOptions>>().Value;
+    httpClient.BaseAddress = new Uri(wingineerApiOptions.BaseUrl);
+    httpClient.DefaultRequestHeaders.Add("ApiKey", wingineerApiOptions.ApiKey);
 });
 
 builder.Services.AddScoped<ISalesPersonService, SalesPersonService>();

@@ -6,18 +6,18 @@ namespace MeasureItAll.Services;
 
 public class OrderVolumeService : IOrderVolumeService
 {
-    private readonly ICustomerApiWebService customerApiWebService;
+    private readonly IWingineerApiWebService wingineerApiWebService;
 
-    public OrderVolumeService(ICustomerApiWebService customerApiWebService)
+    public OrderVolumeService(IWingineerApiWebService wingineerApiWebService)
     {
-        this.customerApiWebService = customerApiWebService;
+        this.wingineerApiWebService = wingineerApiWebService;
     }
 
     // Returns one entry per month, from January of the first order's year up to the last order's month,
     // in chronological order. Months without orders are included with a count of 0.
     public async Task<IReadOnlyList<MonthlyOrderVolumeModel>> GetMonthlyOrderVolumesAsync()
     {
-        var orderLines = await customerApiWebService.GetOrderLinesAsync();
+        var orderLines = await wingineerApiWebService.GetOrderLinesAsync();
         var orderMonths = orderLines
             .Select(orderLine => ParseOrderMonth(orderLine.OrderDate))
             .OfType<DateOnly>()
